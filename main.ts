@@ -65,6 +65,12 @@ function writeLine(): void {
   if (LINE.includes('\n') || LINE.includes('\r')) {
     abort('line must be a single line');
   }
+  if (!/[.!?]$/.test(LINE)) {
+    abort('line must end with sentence-terminal punctuation');
+  }
+  if (/  /.test(LINE)) {
+    abort('line must not contain double spaces');
+  }
 
   const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
   const to = join(outDir, 'entry.txt');
